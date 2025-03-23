@@ -1,0 +1,23 @@
+h1 {
+    color: #89cff0;
+}
+
+.bookTitle {
+    font-weight: bold;
+}
+
+.authorName {
+    font-style: italic;
+}
+
+.finishedBooks {
+    color: green;
+}
+.finishedBookList {
+    color: green;
+}
+
+/* Icons */
+.fa-trash {
+    padding-left: 10px;
+}

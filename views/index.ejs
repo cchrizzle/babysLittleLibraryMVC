@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Baby's Little Library</title>
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    </head>
+    <body>
+        <h1>Baby's little library</h1>
+        <% if (finishedCount === 0) { %>
+        <p>No books added, add your first below!</p>
+        <% } else if(finishedCount === 1) { %>
+        <p>You have read your first book, great start!</p>
+        <% } else { %>
+        <p>You have read <%= finishedCount %> books!</p>
+        <% } %>
+        <section id="addBook">
+            <form action="/books/addBook" method="POST">
+                <fieldset>
+                    <legend>Add a book!</legend>
+                    <p>Title: <input type="text" name="bookTitle" placeholder="Book Title" /></p>
+                    <p>
+                        Author First Name: <input type="text" name="authorFirstName" placeholder="Author First Name" /> Author Last Name:
+                        <input type="text" name="authorLastName" placeholder="Author Last Name" />
+                    </p>
+                    <!-- 3/15/25 13:30: changing values to "true" and "false" doesn't set them as booleans -->
+                    <div>
+                        <input type="radio" name="finished" id="toRead" value="false" checked />
+                        <label for="toRead">To Read</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="finished" id="finishedBook" value="true" />
+                        <label for="finishedBook">Finished</label>
+                    </div>
+                    <button type="submit">Add book!</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <!-- 3/20/25: Testing adding other sections to better understand database -->
+        <section id="toys">
+            <form id="toysForm" action="/toys/addToy" method="POST">
+                <fieldset>
+                    <legend>Add a toy!</legend>
+                    <p>Company: <input type="text" name="toyCompanyName" placeholder="Toy Company Name" /></p>
+                    <p>Toy: <input type="text" name="toy" placeholder="Toy" /></p>
+                    <button type="submit">Add toy!</button>
+                </fieldset>
+            </form>
+        </section>
+
+        <section id="finishedBooks">
+            <h2 class="finishedBooks">Finished Books (<%= finishedCount %>)</h2>
+            <ol>
+                <% finished.forEach(book => { %>
+                <li data-id="<%= book._id %>">
+                    <span class="finishedBookList">
+                        <span class="bookTitle"><%= book.bookTitle %></span>
+                        <span>by </span>
+                        <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
+                    </span>
+                    <span class="fa fa-book-open" alt="Add to reading list"></span><span class="fa fa-trash" alt="Delete"></span>
+                </li>
+                <% }) %>
+            </ol>
+        </section>
+
+        <section id="readingList">
+            <h2 class="readingList">Reading List (<%= unreadCount %>)</h2>
+            <ol class="readingList">
+                <% unread.forEach(book => { %>
+                <li class="unreadBookListItem" data-id="<%= book._id %>">
+                    <span class="bookTitle"><%= book.bookTitle %></span>
+                    <span>by </span>
+                    <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
+                    <span class="fa fa-check"></span><span class="fa fa-trash"></span>
+                </li>
+                <% }) %>
+            </ol>
+        </section>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>
