@@ -12,7 +12,7 @@ module.exports = {
     },
     addBook: async (req, res) => {
         try {
-            const { bookTitle, authorFirstName, authorLastName, finished } = req.body;
+            const { bookTitle, authorFirstName, authorLastName, finished, favorite } = req.body;
             if (!bookTitle || !authorFirstName) {
                 return res.status(400).json({ error: 'Title and first name required!' });
             }
@@ -20,7 +20,8 @@ module.exports = {
                 bookTitle,
                 authorFirstName,
                 authorLastName,
-                finished: finished === 'true',
+                finished: finished === 'true', // To enforce boolean
+                favorite,
             });
 
             res.status(201).json({ message: 'Book added successfully!', book: newBook });
