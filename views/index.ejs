@@ -52,7 +52,15 @@
                         <span>by </span>
                         <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
                     </span>
-                    <span class="fa fa-book-open" alt="Add to reading list"></span><span class="fa fa-trash" alt="Delete"></span>
+                    <span class="fa fa-book-open" alt="Add to reading list"></span>
+                <span>
+                        <form
+                        action='/books/deleteBook/<%= book._id %>?_method=DELETE'
+                        method='POST'>
+                        
+                    <button class="fa fa-trash"></button>
+                    </form>
+                </span>
                 </li>
                 <% }) %>
             </ol>
@@ -66,7 +74,13 @@
                     <span class="bookTitle"><%= book.bookTitle %></span>
                     <span>by </span>
                     <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
-                    <span class="fa fa-check"></span><span class="fa fa-trash"></span>
+                    <span class="fa fa-check"></span>
+                    <form
+                        action='/books/deleteBook/<%= book._id %>?_method=DELETE'
+                        method='POST'>
+                        
+                    <button class="fa fa-trash"></button>
+                    </form>
                 </li>
                 <% }) %>
             </ol>
