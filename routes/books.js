@@ -8,12 +8,12 @@ router.post('/addBook', booksController.addBook);
 
 // Adding below following Leon's setup, but need to process and see.
 
-router.put('/markComplete', booksController.markComplete);
+router.put('/markComplete/:id', booksController.markComplete);
 
-router.put('markToRead', booksController.markToRead);
+router.put('markToRead/:id', booksController.markToRead);
 
-router.put('markFave', booksController.markFave);
+router.put('markFave/:id', booksController.markFave);
 
-router.delete('/deleteBook', booksController.deleteBook);
+router.delete('/deleteBook/:id', booksController.deleteBook);
 
 module.exports = router;
