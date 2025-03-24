@@ -24,7 +24,9 @@ module.exports = {
                 favorite,
             });
 
-            res.status(201).json({ message: 'Book added successfully!', book: newBook });
+            // 3/24/25: Commenting out to reload page, but keeping for future reference: res.status(201).json({ message: 'Book added successfully!', book: newBook });
+            console.log(`Book added successfully! ${newBook.bookTitle} by ${newBook.authorFirstName} ${authorLastName}`);
+            res.redirect('/');
         } catch (err) {
             console.error('Error creating book: ', err);
             res.status(500).send('Error adding book.');
@@ -47,13 +49,13 @@ module.exports = {
     markToRead: async (req, res) => {
         try {
             await Book.findOneAndUpdate(
-                { _id: req.body.id },
+                { _id: req.params.id },
                 {
                     completed: false,
                 }
             );
             console.log('Added to reading list!');
-            res.json('Added to reading list!');
+            res.redirect('/');
         } catch (err) {
             console.error(`Error marking as read: ${err}`);
         }
@@ -75,9 +77,9 @@ module.exports = {
     },
     deleteBook: async (req, res) => {
         try {
-            await Book.deleteOne({ _id: req.body.id });
+            await Book.deleteOne({ _id: req.params.id });
             console.log('Deleted book.');
-            res.json('Deleted book.');
+            res.redirect('/');
         } catch (err) {
             console.error(`Error deleting book: ${err}`);
         }
