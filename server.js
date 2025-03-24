@@ -1,13 +1,16 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./config/database');
+const methodOverride = require('method-override');
 
 require('dotenv').config({ path: './config/.env' });
 
 connectDB();
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.set('view engine', 'ejs'); // Use EJS for views
+app.use(express.static('public')); // Static folder
+app.use(methodOverride('_method')); // Use forms for put/delete
+// Body parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
