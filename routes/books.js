@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const booksController = require('../controllers/books');
 
-router.get('/', booksController.getBooks);
+// router.get('/', booksController.getBooks);
 
 router.post('/addBook', booksController.addBook);
 
