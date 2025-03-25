@@ -10,7 +10,7 @@ router.post('/addBook', booksController.addBook);
 
 router.put('/markComplete/:id', booksController.markComplete);
 
-router.put('markToRead/:id', booksController.markToRead);
+router.put('/markToRead/:id', booksController.markToRead);
 
 router.put('markFave/:id', booksController.markFave);
 
