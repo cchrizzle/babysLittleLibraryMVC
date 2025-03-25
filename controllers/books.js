@@ -1,15 +1,16 @@
 const Book = require('../models/Book');
 
 module.exports = {
-    getBooks: async (req, res) => {
-        try {
-            const bookList = await Book.find();
-            const booksRead = await Book.countDocuments({ finished: true });
-            res.render('index.ejs', { books: bookList, finished: booksRead });
-        } catch (err) {
-            console.error(err);
-        }
-    },
+    // Don't need getBooks controller since it's the same thing as home.getIndex
+    // getBooks: async (req, res) => {
+    //     try {
+    //         const bookList = await Book.find();
+    //         const booksRead = await Book.countDocuments({ finished: true });
+    //         res.render('index.ejs', { books: bookList, finished: booksRead });
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // },
     addBook: async (req, res) => {
         try {
             const { bookTitle, authorFirstName, authorLastName, finished, favorite } = req.body;
@@ -25,7 +26,7 @@ module.exports = {
             });
 
             // 3/24/25: Commenting out to reload page, but keeping for future reference: res.status(201).json({ message: 'Book added successfully!', book: newBook });
-            console.log(`Book added successfully! ${newBook.bookTitle} by ${newBook.authorFirstName} ${authorLastName}`);
+            console.log(`Book added successfully! "${newBook.bookTitle}" by ${newBook.authorFirstName} ${authorLastName}`);
             res.redirect('/');
         } catch (err) {
             console.error('Error creating book: ', err);
@@ -39,7 +40,7 @@ module.exports = {
             await Book.findOneAndUpdate(entry, {
                 finished: true,
             });
-            console.log(`Finished ${completedBook.bookTitle}, good job!`);
+            console.log(`Finished "${completedBook.bookTitle}", good job!`);
             res.redirect('/');
         } catch (err) {
             console.error(err);
@@ -47,13 +48,12 @@ module.exports = {
     },
     markToRead: async (req, res) => {
         try {
-            await Book.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    finished: false,
-                }
-            );
-            console.log('Added to reading list!');
+            const entry = { _id: req.params.id };
+            const toReadBook = await Book.findOne(entry);
+            await Book.findOneAndUpdate(entry, {
+                finished: false,
+            });
+            console.log(`Added "${toReadBook.bookTitle}" to reading list!`);
             res.redirect('/');
         } catch (err) {
             console.error(`Error marking as read: ${err}`);
@@ -76,9 +76,10 @@ module.exports = {
     },
     deleteBook: async (req, res) => {
         try {
-            const deletedBook = await Book.findOne({ _id: req.params.id });
-            await Book.deleteOne({ _id: req.params.id });
-            console.log(`Deleted book: ${deletedBook.bookTitle}.`);
+            const entry = { _id: req.params.id };
+            const deletedBook = await Book.findOne(entry);
+            await Book.deleteOne(entry);
+            console.log(`Deleted book: "${deletedBook.bookTitle}".`);
             res.redirect('/');
         } catch (err) {
             console.error(`Error deleting book: ${err}`);
