@@ -52,7 +52,11 @@
                         <span>by </span>
                         <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
                     </span>
-                    <span class="fa fa-book-open" alt="Add to reading list"></span>
+
+                    <form action='/books/markToRead/<%= book._id %>?_method=PUT'
+                        method='POST'>
+                    <button class='fa fa-book-open'></button>
+                    </form>
                 <span>
                         <form
                         action='/books/deleteBook/<%= book._id %>?_method=DELETE'
