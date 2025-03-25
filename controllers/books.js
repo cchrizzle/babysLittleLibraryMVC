@@ -35,14 +35,11 @@ module.exports = {
     markComplete: async (req, res) => {
         try {
             const entry = { _id: req.params.id };
-            const bookTitle = findOne(entry).bookTitle;
-            await Book.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    finished: true,
-                }
-            );
-            console.log(`Finished ${bookTitle}, good job!`);
+            const completedBook = await Book.findOne(entry);
+            await Book.findOneAndUpdate(entry, {
+                finished: true,
+            });
+            console.log(`Finished ${completedBook.bookTitle}, good job!`);
             res.redirect('/');
         } catch (err) {
             console.error(err);
