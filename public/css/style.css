@@ -1,3 +1,14 @@
+header {
+    display: flex;
+    align-items: center;
+}
+
+#headerIcon {
+    width: 2.5rem;
+    padding-right: 5px;
+    height: auto;
+}
+
 h1 {
     color: #89cff0;
 }
@@ -17,7 +28,25 @@ h1 {
     color: green;
 }
 
+/* Layout */
+#bookLists {
+    display: flex;
+    flex-direction: row;
+}
+
+.formContainer {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
 /* Icons */
 .fa-trash {
     padding-left: 10px;
+}
+
+.unbutton {
+    padding: 0;
+    border: none;
+    background: none;
 }
