@@ -34,14 +34,16 @@ module.exports = {
     },
     markComplete: async (req, res) => {
         try {
+            const entry = { _id: req.params.id };
+            const bookTitle = findOne(entry).bookTitle;
             await Book.findOneAndUpdate(
-                { _id: req.body.id },
+                { _id: req.params.id },
                 {
                     finished: true,
                 }
             );
-            console.log('Marked complete.');
-            res.json('Marked complete.');
+            console.log(`Finished ${bookTitle}, good job!`);
+            res.redirect('/');
         } catch (err) {
             console.error(err);
         }
@@ -51,7 +53,7 @@ module.exports = {
             await Book.findOneAndUpdate(
                 { _id: req.params.id },
                 {
-                    completed: false,
+                    finished: false,
                 }
             );
             console.log('Added to reading list!');
@@ -77,8 +79,9 @@ module.exports = {
     },
     deleteBook: async (req, res) => {
         try {
+            const deletedBook = await Book.findOne({ _id: req.params.id });
             await Book.deleteOne({ _id: req.params.id });
-            console.log('Deleted book.');
+            console.log(`Deleted book: ${deletedBook.bookTitle}.`);
             res.redirect('/');
         } catch (err) {
             console.error(`Error deleting book: ${err}`);
