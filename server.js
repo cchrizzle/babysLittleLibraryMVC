@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/database');
 const methodOverride = require('method-override');
+const passport = require('passport-local');
 
 require('dotenv').config({ path: './config/.env' });
 
@@ -10,6 +11,7 @@ connectDB();
 app.set('view engine', 'ejs'); // Use EJS for views
 app.use(express.static('public')); // Static folder
 app.use(methodOverride('_method')); // Use forms for put/delete
+app.use(passport); // Passport.js
 // Body parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
