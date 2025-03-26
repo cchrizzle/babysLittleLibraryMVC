@@ -33,27 +33,19 @@ module.exports = {
             res.status(500).send('Error adding book.');
         }
     },
-    markComplete: async (req, res) => {
+    markFinished: async (req, res) => {
         try {
-            const entry = { _id: req.params.id };
-            const completedBook = await Book.findOne(entry);
-            await Book.findOneAndUpdate(entry, {
-                finished: true,
-            });
-            console.log(`Finished "${completedBook.bookTitle}", good job!`);
+            const finishedBook = await Book.findOneAndUpdate({ _id: req.params.id }, { finished: true }, { new: true });
+            console.log(`Finished "${finishedBook.bookTitle}", good job!`);
             res.redirect('/');
         } catch (err) {
-            console.error(err);
+            console.error(`Error marking as finished: ${err}`);
         }
     },
     markToRead: async (req, res) => {
         try {
-            const entry = { _id: req.params.id };
-            const toReadBook = await Book.findOne(entry);
-            await Book.findOneAndUpdate(entry, {
-                finished: false,
-            });
-            console.log(`Added "${toReadBook.bookTitle}" to reading list!`);
+            const toReadBook = await Book.findOneAndUpdate({ _id: req.params.id }, { finished: false }, { new: true });
+            console.log(`Added ${toReadBook.bookTitle} to reading list!`);
             res.redirect('/');
         } catch (err) {
             console.error(`Error marking as read: ${err}`);
@@ -76,9 +68,7 @@ module.exports = {
     },
     deleteBook: async (req, res) => {
         try {
-            const entry = { _id: req.params.id };
-            const deletedBook = await Book.findOne(entry);
-            await Book.deleteOne(entry);
+            const deletedBook = await Book.findOneAndDelete({ _id: req.params.id });
             console.log(`Deleted book: "${deletedBook.bookTitle}".`);
             res.redirect('/');
         } catch (err) {
