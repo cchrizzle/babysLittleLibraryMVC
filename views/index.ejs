@@ -1,96 +1,81 @@
-<%- include("partials/header") -%>
-        <% if (bookCount === 0) { %>
-        <p>No books added, add your first below!</p>
-        <% } else if(finishedCount === 0) { %>
-        <p>Finish your first book below!</p>
-        <% } else if(finishedCount === 1) { %>
-        <p>You have read your first book, great start!</p>
-        <% } else { %>
-        <p>You have read <%= finishedCount %> books!</p>
-        <% } %>
-        <section id="addBook">
-            <form action="/books/addBook" method="POST">
-                <fieldset>
-                    <legend>Add a book!</legend>
-                    <p>Title: <input type="text" name="bookTitle" placeholder="Book Title" /></p>
-                    <p>
-                        Author First Name: <input type="text" name="authorFirstName" placeholder="Author First Name" /> Author Last Name:
-                        <input type="text" name="authorLastName" placeholder="Author Last Name" />
-                    </p>
-                    <!-- 3/15/25 13:30: changing values to "true" and "false" doesn"t set them as booleans -->
-                    <div>
-                        <input type="radio" name="finished" id="toRead" value="false" checked />
-                        <label for="toRead">To Read</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="finished" id="finishedBook" value="true" />
-                        <label for="finishedBook">Finished</label>
-                    </div>
-                    <button type="submit">Add book!</button>
-                </fieldset>
-            </form>
-        </section>
+<%- include("partials/header") -%> <% if (bookCount === 0) { %>
+<p>No books added, add your first below!</p>
+<% } else if(finishedCount === 0) { %>
+<p>Finish your first book below!</p>
+<% } else if(finishedCount === 1) { %>
+<p>You have read your first book, great start!</p>
+<% } else { %>
+<p>You have read <%= finishedCount %> books!</p>
+<% } %>
+<section id="addBook">
+    <form action="/books/addBook" method="POST">
+        <fieldset>
+            <legend>Add a book!</legend>
+            <p>Title: <input type="text" name="bookTitle" placeholder="Book Title" /></p>
+            <p>
+                Author First Name: <input type="text" name="authorFirstName" placeholder="Author First Name" /> Author Last Name:
+                <input type="text" name="authorLastName" placeholder="Author Last Name" />
+            </p>
+            <!-- 3/15/25 13:30: changing values to "true" and "false" doesn"t set them as booleans -->
+            <div>
+                <input type="radio" name="finished" id="toRead" value="false" checked />
+                <label for="toRead">To Read</label>
+            </div>
+            <div>
+                <input type="radio" name="finished" id="finishedBook" value="true" />
+                <label for="finishedBook">Finished</label>
+            </div>
+            <button type="submit" class="btn btn-sm btn-light btn-outline-secondary">Add book!</button>
+        </fieldset>
+    </form>
+</section>
 
-        <section id='bookLists'>
-            <section id="readingList">
-                <h2 class="readingList">Reading List (<%= unreadCount %>)</h2>
-                <ol class="readingList">
-                    <% unread.forEach(book => { %>
-                    <li class="unreadBookListItem" data-id="<%= book._id %>">
-                        <span class="bookTitle"><%= book.bookTitle %></span>
-                        <span>by </span>
-                        <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
+<section id="bookLists">
+    <section id="readingList">
+        <h2 class="readingList">Reading List (<%= unreadCount %>)</h2>
+        <ol class="readingList">
+            <% unread.forEach(book => { %>
+            <li class="readingListItem" data-id="<%= book._id %>">
+                <span class="bookTitle"><%= book.bookTitle %></span>
+                <span>by </span>
+                <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
 
-                        <div class='formContainer'>
-                            <form
-                            action="/books/markComplete/<%= book.id %>?_method=PUT"
-                            method="POST"
-                        >
-                        <button class="fa fa-check unbutton"></button>
-                        </form>
-    
-                        <form
-                            action="/books/deleteBook/<%= book._id %>?_method=DELETE"
-                            method="POST">
-                            
-                        <button class="fa fa-trash unbutton"></button>
-                        </form>
-                        </div>
-                    </li>
-                    <% }) %>
-                </ol>
-            </section>
-    
-            <section id="finishedBooks">
-                <% if(finishedCount > 0) { %>
+                <div class="formContainer">
+                    <form action="/books/markFinished/<%= book.id %>?_method=PUT" method="POST">
+                        <button class="btn fa fa-check unbutton"></button>
+                    </form>
 
-                    <h2 class="finishedBooks">Finished Books (<%= finishedCount %>)</h2>
-                    <ol>
-                        <% finished.forEach(book => { %>
-                        <li data-id="<%= book._id %>">
-                            <span class="finishedBookList">
-                                <span class="bookTitle"><%= book.bookTitle %></span>
-                                <span>by </span>
-                                <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
-                            </span>
-        
-                            <div class='formContainer'>
-                                <form action="/books/markToRead/<%= book._id %>?_method=PUT"
-                                    method="POST">
-                                <button class="fa fa-book-open unbutton"></button>
-                                </form>
-                                    <form
-                                    action="/books/deleteBook/<%= book._id %>?_method=DELETE"
-                                    method="POST">
-                                    
-                                <button class="fa fa-trash unbutton"></button>
-                                </form>
-                            </div>
-                        </li>
-                        <% }) %>
-                    </ol>
-                </section>
-                <% } %>
-        </section>
-    </body>
-</html>
+                    <form action="/books/deleteBook/<%= book._id %>?_method=DELETE" method="POST">
+                        <button class="btn fa fa-trash unbutton"></button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
+        </ol>
+    </section>
+
+    <section id="finishedBooks">
+        <% if(finishedCount > 0) { %>
+        <h2 class="finishedBooks">Finished Books (<%= finishedCount %>)</h2>
+        <ol>
+            <% finished.forEach(book => { %>
+            <li class="finishedBookList" data-id="<%= book._id %>">
+                <span class="bookTitle"><%= book.bookTitle %></span>
+                <span>by </span>
+                <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
+
+                <div class="formContainer">
+                    <form action="/books/markToRead/<%= book._id %>?_method=PUT" method="POST">
+                        <button class="btn fa fa-book-open unbutton"></button>
+                    </form>
+                    <form action="/books/deleteBook/<%= book._id %>?_method=DELETE" method="POST">
+                        <button class="btn fa fa-trash unbutton"></button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
+        </ol>
+    </section>
+    <% } %>
+</section>
+<%- include("partials/footer") -%>
