@@ -2,15 +2,18 @@ const Book = require('../models/Book');
 
 module.exports = {
     // Don't need getBooks controller since it's the same thing as home.getIndex
-    // getBooks: async (req, res) => {
-    //     try {
-    //         const bookList = await Book.find();
-    //         const booksRead = await Book.countDocuments({ finished: true });
-    //         res.render('index.ejs', { books: bookList, finished: booksRead });
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // },
+    getBooks: async (req, res) => {
+        try {
+            const bookCount = await Book.find();
+            const finishedBooks = await Book.find({ finished: true });
+            const finishedBooksCount = await Book.countDocuments({ finished: true });
+            const unreadBooks = await Book.find({ finished: false });
+            const unreadBooksCount = await Book.countDocuments({ finished: false });
+            res.render('index.ejs', { bookCount, finished: finishedBooks, finishedCount: finishedBooksCount, unread: unreadBooks, unreadCount: unreadBooksCount });
+        } catch (err) {
+            console.error(err);
+        }
+    },
     addBook: async (req, res) => {
         try {
             const { bookTitle, authorFirstName, authorLastName, finished, favorite } = req.body;
