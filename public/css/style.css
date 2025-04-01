@@ -1,3 +1,8 @@
+body {
+    color: #89cff0;
+    background-color: #917974;
+}
+
 header {
     display: flex;
     align-items: center;
@@ -9,9 +14,9 @@ header {
     height: auto;
 }
 
-h1 {
+/* h1 {
     color: #89cff0;
-}
+} */
 
 .bookTitle {
     font-weight: bold;
@@ -22,10 +27,10 @@ h1 {
 }
 
 .finishedBooks {
-    color: green;
+    color: #89f090;
 }
 .finishedBookList {
-    color: green;
+    color: #89f090;
 }
 
 /* Layout */
@@ -38,6 +43,11 @@ h1 {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+}
+
+.bookRadioOptions {
+    display: inline-flex;
+    align-items: center;
 }
 
 /* Icons */

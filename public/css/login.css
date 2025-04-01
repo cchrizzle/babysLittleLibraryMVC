@@ -1,0 +1,93 @@
+.prompt {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+}
+
+button {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    border-radius: 3px;
+    background: #9fd1f5;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+}
+
+a.button {
+    box-sizing: border-box;
+    display: block;
+    padding: 10px;
+    width: 100%;
+    border-radius: 3px;
+    background: #000;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+button:hover {
+    background-color: #89cff0;
+}
+
+h1 {
+    margin: 0 0 20px 0;
+    padding: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+h3 {
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: 350;
+    text-align: center;
+}
+
+form section {
+    margin: 0 0 20px 0;
+    position: relative; /* for password toggle positioning */
+}
+
+label {
+    display: block;
+    margin: 0 0 3px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+
+input[type='email']:not(:focus):invalid,
+input[type='password']:not(:focus):invalid {
+    color: #89cff0;
+    outline-color: #89cff0;
+}
+
+hr {
+    border-top: 1px solid #d9d9d9;
+    border-bottom: none;
+}
+
+p.instructions {
+    font-weight: 400;
+}
+
+p.help {
+    text-align: center;
+    font-weight: 400;
+}
