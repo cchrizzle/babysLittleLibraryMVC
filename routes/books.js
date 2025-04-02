@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const booksController = require('../controllers/books');
+const { ensureAuth } = require('../middleware/auth');
 
-// router.get('/', booksController.getBooks);
+// router.get('/', ensureAuth, booksController.getBooks);
 
 router.post('/addBook', booksController.addBook);
 
