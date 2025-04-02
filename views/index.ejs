@@ -7,23 +7,36 @@
 <% } else { %>
 <p>You have read <%= finishedCount %> books!</p>
 <% } %>
-<section id="addBook">
+<section class="prompt" id="addBook">
     <form action="/books/addBook" method="POST">
         <fieldset>
             <legend>Add a book!</legend>
-            <p>Title: <input type="text" name="bookTitle" placeholder="Book Title" /></p>
             <p>
-                Author First Name: <input type="text" name="authorFirstName" placeholder="Author First Name" /> Author Last Name:
-                <input type="text" name="authorLastName" placeholder="Author Last Name" />
+                Title: 
+                <input type="text" id="bookTitle" name="bookTitle" placeholder="Book Title" list='bookSuggestions'/>
+                <datalist id='bookSuggestions'></datalist>
+                <span class='fieldDescription'>Suggestions provided by <a href='https://openlibrary.org'>Open Library</a></span>
+            </p>
+            <p>
+                Author First Name:
+                <input type="text" id="authorFirstName" name="authorFirstName" placeholder="Author First Name" list='authorSuggestions' />
+                <datalist id='authorSuggestions'></datalist>
+                Author Last Name:
+                <input type="text" id="authorLastName" name="authorLastName" placeholder="Author Last Name" />
             </p>
             <!-- 3/15/25 13:30: changing values to "true" and "false" doesn"t set them as booleans -->
-            <div>
+
+            <div class="bookRadioOptions">
                 <input type="radio" name="finished" id="toRead" value="false" checked />
                 <label for="toRead">To Read</label>
-            </div>
-            <div>
                 <input type="radio" name="finished" id="finishedBook" value="true" />
                 <label for="finishedBook">Finished</label>
+            </div>
+
+            <!-- Option for selecting date if marking finished -->
+            <div id="dateFinishedField" style="display: none">
+                <label for="dateFinished">Date Finished:</label>
+                <input type="date" name="dateFinished" id="dateFinished" />
             </div>
             <button type="submit" class="btn btn-sm btn-light btn-outline-secondary">Add book!</button>
         </fieldset>
@@ -31,6 +44,7 @@
 </section>
 
 <section id="bookLists">
+    <% if (unreadCount > 0) { %>
     <section id="readingList">
         <h2 class="readingList">Reading List (<%= unreadCount %>)</h2>
         <ol class="readingList">
@@ -53,6 +67,7 @@
             <% }) %>
         </ol>
     </section>
+    <% } %>
 
     <section id="finishedBooks">
         <% if(finishedCount > 0) { %>
@@ -63,6 +78,7 @@
                 <span class="bookTitle"><%= book.bookTitle %></span>
                 <span>by </span>
                 <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
+                <span class='finishedDate'>(Finished <%= book.dateFinished %>)</span>
 
                 <div class="formContainer">
                     <form action="/books/markToRead/<%= book._id %>?_method=PUT" method="POST">
@@ -78,4 +94,5 @@
     </section>
     <% } %>
 </section>
+
 <%- include("partials/footer") -%>
