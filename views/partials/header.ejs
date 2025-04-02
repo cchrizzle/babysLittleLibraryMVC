@@ -13,11 +13,24 @@
         />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
         <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/css/login.css" />
     </head>
     <body>
         <header>
-            <img id="headerIcon" src="imgs/baby-book-babyblue-svgrepo-com.png" alt="Icon of book with baby face" />
+            <img id="headerIcon" src="imgs/icons/baby-book-babyblue-svgrepo-com.png" alt="Icon of book with baby face" />
             <h1>Baby's Little Library</h1>
         </header>
+        <nav class="nav">
+            <ul>
+                <li class="user"><%= user ? (user.name || user.username || user.email) : 'Guest' %></li>
+                <% if(user) { %>
+                <li>
+                    <form action="/logout" method="POST">
+                        <button class="logout" type="submit">Sign out</button>
+                    </form>
+                </li>
+                <% } %>
+            </ul>
+        </nav>
     </body>
 </html>
