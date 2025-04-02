@@ -1,3 +1,4 @@
+/* Body */
 body {
     color: #89cff0;
     background-color: #917974;
@@ -14,10 +15,10 @@ header {
     height: auto;
 }
 
-/* h1 {
-    color: #89cff0;
-} */
 
+/* ====================
+Index.ejs
+==================== */
 .bookTitle {
     font-weight: bold;
 }
@@ -32,6 +33,14 @@ header {
 .finishedBookList {
     color: #89f090;
 }
+
+.fieldDescription {
+    font-size: smaller;
+    font-variant: small-caps;
+    color: gray;
+    padding-left: 1rem;
+}
+
 
 /* Layout */
 #bookLists {
@@ -49,6 +58,7 @@ header {
     display: inline-flex;
     align-items: center;
 }
+
 
 /* Icons */
 .fa-trash {
