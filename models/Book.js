@@ -16,8 +16,24 @@ const BookSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+    dateFinished: {
+        type: Date,
+    },
+    readCount: {
+        type: Number,
+        default: 0,
+    },
+    readHistory: [
+        {
+            dateFinished: Date,
+        },
+    ],
     favorite: {
         type: Boolean,
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     dateAdded: {
         type: Date,
