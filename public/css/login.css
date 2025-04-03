@@ -2,7 +2,7 @@
     max-width: 400px;
     margin: 50px auto;
     padding: 25px;
-    background: #fff;
+    background: rgb(224,224,232);
     border: 1px solid #e6e6e6;
     border-radius: 8px;
 }
@@ -39,7 +39,7 @@ button:hover {
 
 h1 {
     margin: 0 0 20px 0;
-    padding: 0 0 5px 0;
+    padding: .5rem 0 5px 0;
     font-size: 24px;
     font-weight: 500;
 }
@@ -90,4 +90,6 @@ p.instructions {
 p.help {
     text-align: center;
     font-weight: 400;
+    padding-top: 1rem;
 }
+
