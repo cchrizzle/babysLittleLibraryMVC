@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
-// Password hash middleware.
+// bcrypt password salt & hash middleware.
 UserSchema.pre('save', function save(next) {
     const user = this;
     if (!user.isModified('password')) {
