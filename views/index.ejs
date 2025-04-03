@@ -78,7 +78,6 @@
                 <span class="bookTitle"><%= book.bookTitle %></span>
                 <span>by </span>
                 <span class="authorName"><%= book.authorFirstName %> <%= book.authorLastName %></span>
-                <span class='finishedDate'>(Finished <%= book.dateFinished %>)</span>
 
                 <div class="formContainer">
                     <form action="/books/markToRead/<%= book._id %>?_method=PUT" method="POST">
@@ -88,6 +87,8 @@
                         <button class="btn fa fa-trash unbutton"></button>
                     </form>
                 </div>
+                
+                <p class='finishedDate'>(Finished <%= book.dateFinished %>)</p>
             </li>
             <% }) %>
         </ol>
