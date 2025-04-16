@@ -5,11 +5,21 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
-const connectDB = require('./config/database');
+const connectDB = require('../config/database');
+const path = require('path')
 
-require('dotenv').config({ path: './config/.env' }); // .env file
 
-require('./config/passport'); // Require passport
+
+require('dotenv').config({ path: path.resolve(__dirname, '../config/.env') });
+
+
+// require('dotenv').config({ path: '../config/.env' }); // .env file
+// console.log(path.resolve(__dirname, '../config/.env'))   // Debugging resolved path
+// console.log('__dirname:', __dirname);
+// console.log('Loaded env:', process.env);
+// console.log('Current working dir:', process.cwd());
+// console.log('DB_String:', process.env.DB_STRING);
+require('../config/passport'); // Require passport
 
 connectDB();
 
@@ -54,9 +64,9 @@ app.use((req, res, next) => {
 });
 
 // Routes
-const homeRouter = require('./routes/home');
-const authRouter = require('./routes/auth');
-const booksRouter = require('./routes/books');
+const homeRouter = require('../routes/home');
+const authRouter = require('../routes/auth');
+const booksRouter = require('../routes/books');
 app.use('/', homeRouter);
 app.use('/', authRouter);
 app.use('/books', booksRouter);
